@@ -74,20 +74,11 @@ int main() {
 	int num = nX * nY;
 
 	int bins = num * 8;
-
-
-
-	int j = 0;
-
-	int i = 0;
-
-
+	int h = 0;
+	int w = 0;
 
 	float *hog1;
-
-	float *hog2;
-
-
+    float *hog2;
 
 	Mat tempMat;
 
@@ -103,13 +94,13 @@ int main() {
 
 	Rect r2;
 
-	for (i = 0; i < src1.rows - src.rows; i++) {
+	for (h = 0; h < src1.rows - src.rows; h++) {
 
-		for (j = 0; j < src1.cols - src.cols; j++)
+		for (w = 0; w < src1.cols - src.cols; w++)
 
 		{
 
-			Rect r(j, i, src.cols, src.rows);
+			Rect r(w,h, src.cols, src.rows);
 
 			tempMat = src1(r);
 
@@ -123,18 +114,15 @@ int main() {
 
 
 
-			for (int k = 0; k < bins; k++)
+			for (int i= 0; i < bins;i++)
 
 			{
 
-				res1 += (hog1[k] - hog2[k])*(hog1[k] - hog2[k]);
+				res1 += (hog1[i] - hog2[i])*(hog1[i] - hog2[i]);
 
 			}
 
 			res1 = sqrt(res1);
-
-
-
 			if (res1 < min)
 
 			{
@@ -152,11 +140,7 @@ int main() {
 
 
 	rectangle(src1, r2, CV_RGB(255, 255, 255), 1, 8, 0);
-
 	imshow("result", src1);
-
-
-
 	waitKey(0);
 
 	return 0;
